@@ -1,14 +1,11 @@
 ﻿#include "MibibliotecaGameJam.h"
 
 
-const int ALTO = 45;
+const int ALTO = 50;
 const int ANCHO = 160;
 int opcionMenu = 0;
 Celda** pantalla;
 
-// Posiciones de los carros en el eje X y Y
-int posX[] = { 0, 2, 1, 2, 0, 2 };
-int posY[] = { 28, 24, 20, 17, 12, 9 };	
 
 namespace funcionesMenu {
 	void ConfigurarPantalla() {
@@ -75,195 +72,9 @@ namespace funcionesMenu {
 			}
 		}
 	}
-	void DibujarMenu() {
-		const wchar_t* menu[] = {
-			L"    ██████            █████       █████  █████████████     █████████        ████████      ",
-			L"    ████████        ███████      ██████  █████████████    █████   ███      ███    ████    ",
-			L"    █████████       ████▒▒       █████     ███████       █████     ███    ███      ████   ",
-			L"   ██████████      ██▒▒▒▒       ███▒▒▒    ▒█████        ██████    ████   ██          ▒▒   ",
-			L"   ████▒▒▒▒▒▒▒     ▒▒▒▒▒▒       ▒▒▒▒▒    ▒▒▒▒██        ██████████████    ▒▒          ▒▒   ",
-			L"  ██▒▒▒   ▒▒▒▒▒    ▒▒▒▒▒▒     ▒▒▒▒▒     ▒▒▒▒▒▒        ███████████▒▒      ▒▒▒        ▒▒▒   ",
-			L" ▒▒▒▒▒     ▒▒▒▒▒  ▒▒▒▒▒     ▒▒▒▒▒▒▒    ▒▒▒▒▒▒        ▒▒▒███    ▒▒▒▒▒     ▒▒▒▒▒     ▒▒▒    ",
-			L" ▒▒▒▒▒     ▒▒▒▒▒▒▒▒▒▒▒      ▒▒▒▒▒▒    ▒▒▒▒▒▒        ▒▒▒▒▒       ▒▒▒▒▒     ▒▒▒▒▒▒▒▒▒▒      ",
-		};
-		int longitud = wcslen(menu[0]);
-		Figura Titulo = {
-			menu,
-			ANCHO / 2 - (longitud / 2),
-			5,
-			8,
-			longitud,
-			ConsoleColor::Blue,
-			nullptr
-		};
-		DibujarFigura(Titulo);
-	}
-	void DibujarJugar() {
-		const wchar_t* jugar[] = {
-			L"    █ █  █   ███    ██    ████ ",
-			L"    █  █  █ █      █  █   █   █",
-			L" ▒ ▒   ▒  ▒  ▒  ▒  ▒▒▒▒  ▒▒▒▒▒ ",
-			L"  ▒     ▒▒    ▒▒   ▒  ▒ ▒    ▒ ",
-		};
-		int longitud = wcslen(jugar[0]);
-		Figura jugarBtn = {
-			jugar,
-			ANCHO / 2 - (longitud / 2),
-			15,
-			4,
-			longitud,
-			ConsoleColor::Blue
-		};
-		DibujarFigura(jugarBtn);
-	}
-	void DibujarSalir() {
-		const wchar_t* salir[] = {
-			L"   ███   █    █    ███    ███  ",
-			L"  █     █ ▒   █     █    █   █ ",
-			L"   ███  ▒▒▒   ▒     ▒   ▒▒▒▒▒  ",
-			L"  ▒▒▒▒ ▒   ▒  ▒▒▒  ▒▒▒ ▒    ▒  ",
-		};
-		int longitud = wcslen(salir[0]);
-		Figura salirBtn = {
-			salir,
-			ANCHO / 2 - (longitud / 2),
-			20,
-			4,
-			longitud,
-			ConsoleColor::Red
-		};
-		DibujarFigura(salirBtn);
-	}
+
 	// Se hizo uso de la IA para generar las matrices de los carros
-	void Carro1() {
-		const wchar_t* CarroS5[] = {
-			L"                    ",
-			L" |\\_/|..[]__\\__.._",
-			L" '-( )------( )--=='"
-		};
-		int longitud = wcslen(CarroS5[0]);
-		Figura protagonista = {
-			CarroS5,
-			posX[0],
-			posY[0],
-			3,
-			longitud,
-			ConsoleColor::DarkRed,
-			nullptr,
-		};
-		DibujarFigura(protagonista);
-	}
-	void Carro2() {
-		const wchar_t* CarroS[] = {
-			L"      ._____.      ",
-			L"  -._*-|≡≡ b|-*---¬_ ",
-			L"  '( )'----'( )--'"
-		};
-		int longitud = wcslen(CarroS[0]);
-		Figura protagonista = {
-			CarroS,
-			posX[1],
-			posY[1],
-			3,
-			longitud,
-			ConsoleColor::DarkBlue,
-			nullptr
-		};
-		DibujarFigura(protagonista);
-	}
-	void Carro3() {
-		const wchar_t* CarroS5[] = {
-			L"     _______       ",
-			L" ___//_||__\\\\_____ ",
-			L"|_   ___    ___  `|",
-			L"'-(_)------(_)--'-'"
-		};
 
-		int longitud = wcslen(CarroS5[0]);
-		Figura protagonista = {
-			CarroS5,
-			posX[2],
-			posY[2],
-			4,
-			longitud,
-			ConsoleColor::DarkGreen,
-			nullptr,
-		};
-		DibujarFigura(protagonista);
-	}
-	void Carro4() {
-		const wchar_t* CarroDeportivo4[] = {
-			L"    ____________    ",
-			L" __/|_||___||_|\\___",
-			L"|___    ___     ___|",
-			L"'--(o)-------(o)--' "
-		};
-
-		int longitud = wcslen(CarroDeportivo4[0]);
-		Figura protagonista = {
-			CarroDeportivo4,
-			posX[3],
-			posY[3],
-			4,
-			longitud,
-			ConsoleColor::DarkYellow,
-			nullptr,
-		};
-		DibujarFigura(protagonista);
-	}
-	void Carro5() {
-		const wchar_t* CarroDeportivo5[] = {
-			L"                   ",
-			L"  _    _           ",
-			L"  \`../ |o_..__    ",
-			L"  (_)______(_).>   "
-		};
-
-		int longitud = wcslen(CarroDeportivo5[0]);
-		Figura protagonista = {
-			CarroDeportivo5,
-			posX[4],
-			posY[4],
-			4,
-			longitud,
-			ConsoleColor::DarkRed,
-			nullptr,
-		};
-		DibujarFigura(protagonista);
-	}
-	void Carro6() {
-		const wchar_t* Lamborghini[] = {
-			L" ______--...\\____   ",
-			L"\\____.______..`._\\ ",
-			L" `=(_)'-----'(_)--=' ",
-			L"                     "
-		};
-
-		int longitud = wcslen(Lamborghini[0]);
-		Figura protagonista = {
-			Lamborghini,
-			posX[5],
-			posY[5],
-			4,
-			longitud,
-			ConsoleColor::DarkCyan,
-			nullptr,
-		};
-		DibujarFigura(protagonista);
-	}
-	void ActualizarCarro() {
-		Random f;
-		int velocidades[6];
-		for (int i = 0; i < 6; i++) {
-			velocidades[i] = f.Next(1, 40);
-			if (posX[i] <= ANCHO) {
-				posX[i] += velocidades[i];
-			}
-			else {
-				posX[i] = 0;
-			}
-		}
-	}
 	void CambiarDePantalla() {
 		const wchar_t* upc[] = {
 			L"                                            ",
@@ -302,17 +113,7 @@ namespace funcionesMenu {
 		};
 		DibujarFigura(pantallaFinal);
 	}
-	void RedibujarCarros() {
-		ActualizarCarro();
-		InicializarPantalla();
-		Carro1();
-		Carro2();
-		Carro3();
-		Carro4();
-		Carro5();
-		Carro6();
-		mostrarPantalla();
-	}
+
 	// Animaciond de carga
 	void AnimarCarro() {
 		ReproducirAudio("audios/Carrera.wav");
@@ -320,7 +121,7 @@ namespace funcionesMenu {
 		int inicioX = ANCHO / 2;
 		while (i < 10)
 		{
-			RedibujarCarros();
+			Carros::RedibujarCarros();
 			Console::SetCursorPosition(inicioX, ALTO - 10);
 			Console::ForegroundColor = ConsoleColor::White;
 			Console::Write("{0}%", (i + 1) * 100 / 10); 
@@ -373,9 +174,9 @@ namespace funcionesMenu {
 		ImprimirOpcion(39, 15 + 5*opcionMenu, 4, longitud);
 	}
 	void Menu() {
-		DibujarMenu(); 
-		DibujarJugar();
-		DibujarSalir();
+		Menu::DibujarMenu(); 
+		Menu::DibujarJugar();
+		Menu::DibujarSalir();
 		OpcionAnimacion();
 		mostrarPantalla();
 	}
@@ -384,6 +185,7 @@ namespace funcionesMenu {
 		case 0:
 			LimpiarPantalla();
 			AnimarCarro();
+			Simulacion::DibujarSimulacion();
 			break;
 		case 1:
 			LimpiarPantalla();
@@ -423,60 +225,6 @@ namespace funcionesMenu {
 				}
 			}
 		}
-	}
-	void DibujarAutopista() {
-		const wchar_t* autopista[] = {
-			L"           /───────────────────────────────────────────────────────────────────────────────────────────────────────\\       ",
-			L"          /                                                                                                         \\      ",
-			L"         /                                                                                                           \\     ",
-			L"        /                                                                                                             \\    ",
-			L"       /                                                                                                               \\    ",
-			L"      /                                                                                                                 \\    ",
-			L"     /                              ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬                          \\    ",
-			L"    /                                                                                                                     \\    ",
-			L"    │                                                                                                                       │    ",
-			L"    │                                                                                                                       │    ",
-			L"    │                                                                                                                       │    ",
-			L"    │                                                                                                                       │    ",
-			L"    │                                     /───────────────────────────────────────────\\                                    │    ",
-			L"    │                                    /                                             \\                                   │    ",
-			L"    │                                   /                                               \\                                  │    ",
-			L"    │                                  /                                                 \\                                 │    ",
-			L"    │              ||                 /                                                   \\                ||              │    ",
-			L"    │              ||                /                                                     \\               ||              │    ",
-			L"    │              ||               /                                                       \\              ||              │    ",
-			L"    │              ||              │                                                         │              ||              │    ",
-			L"    │              ||              │                                                         │              ||              │    ",
-			L"    │              ||              │                                                         │              ||              │    ",
-			L"    │              ||              │                                                         │              ||              │    ",
-			L"    │              ||              │                                                         │              ||              │    ",
-			L"    │              ||              │                                                         │              ||              │    ",
-			L"    │              ||              │                                                         │              ||              │    ",
-			L"    │              ||              │                                                         │              ||              │    ",
-			L"    │              ||              │                                                         │              ||              │    ",
-			L"    │              ||              │                                                         |              ||              │    ",
-			L"    │              ||              |                                                         │              ||              │    ",
-			L"    │              ||              \\                                                       /               ||              │    ",
-			L"    │              ||               \\                                                     /                ||              │    ",
-			L"    │              ||                \\                                                   /                 ||              │    ",
-			L"    │                                 \\                                                 /                                  │    ",
-			L"    │                                  \\                                               /                                   │    ",
-			L"    │                                   \\                                             /                                    │    ",
-			L"    │                                    \\───────────────────────────────────────────/                                     │    ",
-			L"   \\                                                                                                                      /     ",
-			L"    \\                                                                                                                    /      ",
-			L"     \\                                                                                                                  /       ",
-			L"      \\                                                                                                                /        ",
-			L"       \\                                                                                                              /         ",
-			L"        \\                         ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬                        /         ",
-			L"         \\                                                                                                          /          ",
-			L"          \\                                                                                                        /           ",
-			L"           \\                                                                                                      /            ",
-			L"            \\                                                                                                    /             ",
-			L"             \\                                                                                                  /              ",
-			L"              \\────────────────────────────────────────────────────────────────────────────────────────────────/              ",
-			L"                                                                                                                                ",
-		};
 	}
 
 }

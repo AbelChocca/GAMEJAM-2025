@@ -111,7 +111,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Carros.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Simulacion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MibibliotecaGameJam.h" />

@@ -29,10 +29,26 @@ struct Figura {
 	FuncionColor funcionColor;
 };
 
+extern const int ANCHO;
+
+namespace Carros {
+	void RedibujarCarros();
+}
+
+namespace Menu {
+	void DibujarMenu();
+	void DibujarJugar();
+	void DibujarSalir();
+}
 
 namespace funcionesMenu {
-	void DibujarMenu();
-
+	void DibujarFigura(Figura& figura);
+	void InicializarPantalla();
+	void mostrarPantalla();
+	void LimpiarPantalla();
+}
+namespace Simulacion {
+	void DibujarSimulacion();
 }
 
 
