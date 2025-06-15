@@ -1,13 +1,14 @@
 ﻿#include "MibibliotecaGameJam.h"
 
 
-const int ALTO = 40;
-const int ANCHO = 120;
+const int ALTO = 45;
+const int ANCHO = 160;
+int opcionMenu = 0;
 Celda** pantalla;
 
 // Posiciones de los carros en el eje X y Y
 int posX[] = { 0, 2, 1, 2, 0, 2 };
-int posY[] = { 21, 14, 18, 24, 10, 7 };	
+int posY[] = { 28, 24, 20, 17, 12, 9 };	
 
 namespace funcionesMenu {
 	void ConfigurarPantalla() {
@@ -115,50 +116,23 @@ namespace funcionesMenu {
 		};
 		DibujarFigura(jugarBtn);
 	}
-
-	ConsoleColor PistaCondicion(int fila, int columna, wchar_t c) {
-		if (c == L'▓' || c == L'≡') return ConsoleColor::DarkGray;
-		if (c == L'*' || c == L'▓') return ConsoleColor::Gray;
-	}
-	void Pista() {
-		const wchar_t* pista[] = {
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓*******************************************************************************************************************▓▓",
-			L"▓▓*******************************************************************************************************************▓▓",
-			L"▓▓*******************************************************************************************************************▓▓",
-			L"▓▓*******************************************************************************************************************▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓█████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███████████▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓█████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███████████▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",
-			L"≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡",
+	void DibujarSalir() {
+		const wchar_t* salir[] = {
+			L"   ███   █    █    ███    ███  ",
+			L"  █     █ ▒   █     █    █   █ ",
+			L"   ███  ▒▒▒   ▒     ▒   ▒▒▒▒▒  ",
+			L"  ▒▒▒▒ ▒   ▒  ▒▒▒  ▒▒▒ ▒    ▒  ",
 		};
-		int longitud = wcslen(pista[0]);
-		Figura pistaFigura = {
-			pista,
-			0,
-			5,
-			26,
+		int longitud = wcslen(salir[0]);
+		Figura salirBtn = {
+			salir,
+			ANCHO / 2 - (longitud / 2),
+			20,
+			4,
 			longitud,
-			ConsoleColor::DarkGray,
-			nullptr
+			ConsoleColor::Red
 		};
+		DibujarFigura(salirBtn);
 	}
 	// Se hizo uso de la IA para generar las matrices de los carros
 	void Carro1() {
@@ -281,9 +255,12 @@ namespace funcionesMenu {
 		Random f;
 		int velocidades[6];
 		for (int i = 0; i < 6; i++) {
-			velocidades[i] = f.Next(1, 110);
+			velocidades[i] = f.Next(1, 40);
 			if (posX[i] <= ANCHO) {
 				posX[i] += velocidades[i];
+			}
+			else {
+				posX[i] = 0;
 			}
 		}
 	}
@@ -336,44 +313,182 @@ namespace funcionesMenu {
 		Carro6();
 		mostrarPantalla();
 	}
-
+	// Animaciond de carga
 	void AnimarCarro() {
 		ReproducirAudio("audios/Carrera.wav");
-		while (true)
+		int i = 0;
+		int inicioX = ANCHO / 2;
+		while (i < 10)
 		{
 			RedibujarCarros();
-
-			bool terminar = true;
-			for (int i = 0; i < 6; i++) {
-				if (posX[i] < ANCHO) {
-					terminar = false;
-					break;
-				}
-			}
-			if (terminar) {
-				break;
-			}
-
-			_sleep(20);
+			Console::SetCursorPosition(inicioX, ALTO - 10);
+			Console::ForegroundColor = ConsoleColor::White;
+			Console::Write("{0}%", (i + 1) * 100 / 10); 
+			i++;
 		}
+		LimpiarPantalla();
+		InicializarPantalla();
 		CambiarDePantalla();
 		mostrarPantalla();
 	}
+	void EliminarOpcion() {
+		for (int i = 0; i < 10; i++) {
+			int posx = 39;
+			int posY = 15 + i;
+
+			Console::SetCursorPosition(posx, posY);
+			Console::Write("    ");
+			
+		}
+	}
+	
+	void ImprimirOpcion(int x, int y, int fila, int columna) {
+		for (int i = 0; i < fila; i++) {
+			Console::SetCursorPosition(x, y + i);
+			for (int j = 0; j < columna; j++) {
+				Console::ForegroundColor = pantalla[y + i][x + j].color;
+				Console::Write(pantalla[y + i][x + j].simbolo);
+			}
+		}
+	}
+	void OpcionAnimacion() {
+		const wchar_t* opcionAnimacion[] = {
+			L"██╗",
+			L"██║",
+			L"██║",
+			L"██║",
+		};
+
+		int longitud = wcslen(opcionAnimacion[0]);
+		Figura opcion = {
+			opcionAnimacion,
+			39,
+			15 + 5*opcionMenu,
+			4,
+			longitud,
+			ConsoleColor::Blue,
+			nullptr,
+		};
+		DibujarFigura(opcion);
+		ImprimirOpcion(39, 15 + 5*opcionMenu, 4, longitud);
+	}
 	void Menu() {
-		LimpiarPantalla();
-		InicializarPantalla();
-		DibujarMenu();
-		ReproducirAudio("audios/MenuMusica.wav");
+		DibujarMenu(); 
 		DibujarJugar();
+		DibujarSalir();
+		OpcionAnimacion();
 		mostrarPantalla();
 	}
+	void SeleccionarOpcion(int opcionMenu) {
+		switch (opcionMenu) {
+		case 0:
+			LimpiarPantalla();
+			AnimarCarro();
+			break;
+		case 1:
+			LimpiarPantalla();
+			exit(0);
+		default:
+			break;
+		}
+	}
+	void ElejirOpcion() {
+		LimpiarPantalla();
+		InicializarPantalla();
+		ReproducirAudio("audios/MenuMusica.wav");
+		Menu();
+		while (true) {
+			if (_kbhit()) {
+				int tecla = getch();
+
+				switch (tecla)
+				{
+				case w:
+					if (opcionMenu > 0) {
+						opcionMenu--;
+						EliminarOpcion();
+						OpcionAnimacion();
+					}
+					break;
+				case s:
+					if (opcionMenu < 1) {
+						opcionMenu++;
+						EliminarOpcion();
+						OpcionAnimacion();
+					}
+					break;
+				case enter:
+					SeleccionarOpcion(opcionMenu);
+					break;
+				}
+			}
+		}
+	}
+	void DibujarAutopista() {
+		const wchar_t* autopista[] = {
+			L"           /───────────────────────────────────────────────────────────────────────────────────────────────────────\\       ",
+			L"          /                                                                                                         \\      ",
+			L"         /                                                                                                           \\     ",
+			L"        /                                                                                                             \\    ",
+			L"       /                                                                                                               \\    ",
+			L"      /                                                                                                                 \\    ",
+			L"     /                              ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬                          \\    ",
+			L"    /                                                                                                                     \\    ",
+			L"    │                                                                                                                       │    ",
+			L"    │                                                                                                                       │    ",
+			L"    │                                                                                                                       │    ",
+			L"    │                                                                                                                       │    ",
+			L"    │                                     /───────────────────────────────────────────\\                                    │    ",
+			L"    │                                    /                                             \\                                   │    ",
+			L"    │                                   /                                               \\                                  │    ",
+			L"    │                                  /                                                 \\                                 │    ",
+			L"    │              ||                 /                                                   \\                ||              │    ",
+			L"    │              ||                /                                                     \\               ||              │    ",
+			L"    │              ||               /                                                       \\              ||              │    ",
+			L"    │              ||              │                                                         │              ||              │    ",
+			L"    │              ||              │                                                         │              ||              │    ",
+			L"    │              ||              │                                                         │              ||              │    ",
+			L"    │              ||              │                                                         │              ||              │    ",
+			L"    │              ||              │                                                         │              ||              │    ",
+			L"    │              ||              │                                                         │              ||              │    ",
+			L"    │              ||              │                                                         │              ||              │    ",
+			L"    │              ||              │                                                         │              ||              │    ",
+			L"    │              ||              │                                                         │              ||              │    ",
+			L"    │              ||              │                                                         |              ||              │    ",
+			L"    │              ||              |                                                         │              ||              │    ",
+			L"    │              ||              \\                                                       /               ||              │    ",
+			L"    │              ||               \\                                                     /                ||              │    ",
+			L"    │              ||                \\                                                   /                 ||              │    ",
+			L"    │                                 \\                                                 /                                  │    ",
+			L"    │                                  \\                                               /                                   │    ",
+			L"    │                                   \\                                             /                                    │    ",
+			L"    │                                    \\───────────────────────────────────────────/                                     │    ",
+			L"   \\                                                                                                                      /     ",
+			L"    \\                                                                                                                    /      ",
+			L"     \\                                                                                                                  /       ",
+			L"      \\                                                                                                                /        ",
+			L"       \\                                                                                                              /         ",
+			L"        \\                         ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬                        /         ",
+			L"         \\                                                                                                          /          ",
+			L"          \\                                                                                                        /           ",
+			L"           \\                                                                                                      /            ",
+			L"            \\                                                                                                    /             ",
+			L"             \\                                                                                                  /              ",
+			L"              \\────────────────────────────────────────────────────────────────────────────────────────────────/              ",
+			L"                                                                                                                                ",
+		};
+	}
+
 }
+
+
 
 int main() {
 	funcionesMenu::ConfigurarPantalla();
 
 	funcionesMenu::AnimarCarro();
 	_sleep(1000);
-	funcionesMenu::Menu();
+
+	funcionesMenu::ElejirOpcion();
 	return getch();
 }

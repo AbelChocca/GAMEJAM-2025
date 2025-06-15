@@ -3,9 +3,15 @@
 #include <conio.h>
 #using <System.dll>
 
+#define w 119
+#define s 115
+#define enter 13
+#define esc 27
+
 using namespace std;
 using namespace System;
 using namespace System::Media;
+using namespace System::Threading;
 
 struct Posiciones {
 	int x, y;
