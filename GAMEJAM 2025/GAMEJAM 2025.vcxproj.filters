@@ -43,5 +43,17 @@
     <Media Include="audios\MenuMusica.wav">
       <Filter>Audios</Filter>
     </Media>
+    <Media Include="Carrera2.wav">
+      <Filter>Audios</Filter>
+    </Media>
+    <Media Include="Motores.wav">
+      <Filter>Audios</Filter>
+    </Media>
+    <Media Include="Contador.wav">
+      <Filter>Audios</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\..\Downloads\Ganador.wav">
+      <Filter>Audios</Filter>
+    </Media>
   </ItemGroup>
 </Project>

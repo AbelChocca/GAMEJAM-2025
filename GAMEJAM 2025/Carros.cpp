@@ -40,7 +40,7 @@ namespace Carros {
 	void Carro2() {
 		const wchar_t* CarroS[] = {
 			L"      ._____.      ",
-			L"  -._*-|?? b|-*---¬_ ",
+			L"  -._*-|## b|-*---¬_ ",
 			L"  '( )'----'( )--'"
 		};
 		int longitud = wcslen(CarroS[0]);

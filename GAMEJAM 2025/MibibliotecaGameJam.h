@@ -30,6 +30,8 @@ struct Figura {
 };
 
 extern const int ANCHO;
+extern const int ALTO;
+extern Celda** pantalla;
 
 namespace Carros {
 	void RedibujarCarros();
@@ -46,6 +48,7 @@ namespace funcionesMenu {
 	void InicializarPantalla();
 	void mostrarPantalla();
 	void LimpiarPantalla();
+	void ReproducirAudio(String^ ruta);
 }
 namespace Simulacion {
 	void DibujarSimulacion();

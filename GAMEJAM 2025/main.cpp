@@ -119,12 +119,12 @@ namespace funcionesMenu {
 		ReproducirAudio("audios/Carrera.wav");
 		int i = 0;
 		int inicioX = ANCHO / 2;
-		while (i < 10)
+		while (i < 5)
 		{
 			Carros::RedibujarCarros();
 			Console::SetCursorPosition(inicioX, ALTO - 10);
 			Console::ForegroundColor = ConsoleColor::White;
-			Console::Write("{0}%", (i + 1) * 100 / 10); 
+			Console::Write("{0}%", (i + 1) * 100 / 5); 
 			i++;
 		}
 		LimpiarPantalla();
@@ -199,7 +199,8 @@ namespace funcionesMenu {
 		InicializarPantalla();
 		ReproducirAudio("audios/MenuMusica.wav");
 		Menu();
-		while (true) {
+		bool movimiento = false;
+		while (!movimiento) {
 			if (_kbhit()) {
 				int tecla = getch();
 
@@ -220,6 +221,7 @@ namespace funcionesMenu {
 					}
 					break;
 				case enter:
+					movimiento = true;
 					SeleccionarOpcion(opcionMenu);
 					break;
 				}
